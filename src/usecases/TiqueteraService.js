@@ -13,6 +13,11 @@ class TiqueteraService {
         return tiqueteraRepository.create(data);
     }
 
+    getTotalTransaccionesGlobal() {
+        return tiqueteraRepository.getTotalTransaccionesGlobal();
+    }
+
+
     update(id, data) {
         return tiqueteraRepository.update(Number(id), data);
     }

@@ -4,6 +4,7 @@ class TiqueteraRepository {
     constructor() {
         this.tiqueteras = [];
         this.nextId = 1;
+        this.totalTransaccionesGlobal = 0;
     }
 
     getAll() {
@@ -18,8 +19,10 @@ class TiqueteraRepository {
         const tiquetera = new Tiquetera({ ...data, NroTiquetera: this.nextId });
         this.tiqueteras.push(tiquetera);
         this.nextId++;
+        this.totalTransaccionesGlobal++;
         return tiquetera;
     }
+
 
     update(id, data) {
         const tiquetera = this.getById(id);
@@ -27,6 +30,7 @@ class TiqueteraRepository {
         tiquetera.cliente = data.cliente || tiquetera.cliente;
         tiquetera.saldo = data.saldo !== undefined ? data.saldo : tiquetera.saldo;
         tiquetera.totalTransacciones++;
+        this.totalTransaccionesGlobal++;
         return tiquetera;
     }
 
@@ -35,7 +39,11 @@ class TiqueteraRepository {
         if (index === -1) return null;
         const [deleted] = this.tiqueteras.splice(index, 1);
         deleted.totalTransacciones++;
+        this.totalTransaccionesGlobal++;
         return deleted;
+    }
+    getTotalTransaccionesGlobal() {
+        return this.totalTransaccionesGlobal;
     }
 }
 

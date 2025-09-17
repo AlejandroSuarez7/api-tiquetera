@@ -27,4 +27,10 @@ const getAll = (req, res) => {
     res.json(tiquetera);
 };
 
-module.exports = { getAll, getById, create, update, remove };
+
+const getTotalTransaccionesGlobal = (req, res) => {
+    const total = tiqueteraService.getTotalTransaccionesGlobal();
+    res.json({ totalTransacciones: total });
+};
+
+module.exports = { getAll, getById, create, update, remove, getTotalTransaccionesGlobal };
