@@ -16,7 +16,11 @@ class TiqueteraRepository {
     }
 
     create(data) {
-        const tiquetera = new Tiquetera({ ...data, NroTiquetera: this.nextId });
+        const tiquetera = new Tiquetera({
+            ...data,
+            NroTiquetera: this.nextId,
+            Observaciones: data.Observaciones || ""
+        });
         this.tiqueteras.push(tiquetera);
         this.nextId++;
         this.totalTransaccionesGlobal++;
@@ -29,6 +33,7 @@ class TiqueteraRepository {
         if (!tiquetera) return null;
         tiquetera.cliente = data.cliente || tiquetera.cliente;
         tiquetera.saldo = data.saldo !== undefined ? data.saldo : tiquetera.saldo;
+        tiquetera.Observaciones = data.Observaciones !== undefined ? data.Observaciones : tiquetera.Observaciones;
         tiquetera.totalTransacciones++;
         this.totalTransaccionesGlobal++;
         return tiquetera;
